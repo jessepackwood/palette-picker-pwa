@@ -4,11 +4,12 @@
 
 //each color box have an id?
 
-$('lock-icon').click(changeFlag)
+$('.lock-icon').on('click', changeFlag)
+$('#new-palette').on('click', setColors)
 
 function changeFlag() {
   console.log('click')
-  $('lock-icon').toggleClass('selected-flag')
+  $(this).toggleClass('selected-flag')
 }
 
 function getRandomColor() {
@@ -35,4 +36,4 @@ function setColors() {
   $('#color-five').css('background', color5)
 }
 
-$(document).ready( setColors)
+$(document).ready(setColors)
