@@ -3,74 +3,94 @@
 <head>
   <title>Palette Picker</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Popsicle Picker</h1>
-    <button id='new-palette'>New Flavors</button>
-    <!-- <span>Press spacebar to generate new flavors</span> -->
+    <div>
+      <h1 class='title'>Popsicle <span class='picker'>Palette</span></h1>
+      <span class='subtitle'>Press the spacebar to get new flavors</span>
+    </div>
+    <div>
+      <div class='add-project'>
+        <input class='input project-input' type='text' placeholder='Project Title'/>
+        <button class='btn-add'>Add</button>
+      </div>
+      <div class='project-button-wrapper'>
+      <span class='btn-view-label'>Projects</span><button class='btn-view'></button>
+      </div>
+    </div>
   </header>
   <div class='color-container'>
-    <div class='popsicle'>
-      <div class='color-box' id='color-one'>
-        <div class='lock-box'>
-          <span class='hex-code'>Hex</span>
-          <div class='lock-icon'>
+    <div class='popsicle-container'>
+      <div class='popsicle'>
+        <div class='color-box' id='color-one'>
+          <div class='lock-box'>
+            <span class='hex-code'>Hex</span>
+            <div class='lock-icon'>
+            </div>
           </div>
         </div>
-      </div>
-      <div class='popsicle-stick'>
-      </div>
-    </div> 
-    <div class='popsicle'>
-      <div class='color-box' id='color-two'>
-        <div class='lock-box'>
-          <span class='hex-code'>Hex</span>
-          <div class='lock-icon'>
+        <div class='popsicle-stick'>
+        </div>
+      </div> 
+      <div class='popsicle'>
+        <div class='color-box' id='color-two'>
+          <div class='lock-box'>
+            <span class='hex-code'>Hex</span>
+            <div class='lock-icon'>
+            </div>
           </div>
         </div>
-      </div>
-      <div class='popsicle-stick'>
-      </div>
-    </div> 
-    <div class='popsicle'>
-      <div class='color-box' id='color-three'>
-        <div class='lock-box'>
-          <span class='hex-code'>Hex</span>
-          <div class='lock-icon'>
+        <div class='popsicle-stick'>
+        </div>
+      </div> 
+      <div class='popsicle'>
+        <div class='color-box' id='color-three'>
+          <div class='lock-box'>
+            <span class='hex-code'>Hex</span>
+            <div class='lock-icon'>
+            </div>
           </div>
         </div>
+        <div class='popsicle-stick'>
+        </div>
       </div>
-      <div class='popsicle-stick'>
+      <div class='popsicle'>
+        <div class='color-box' id='color-four'>
+          <div class='lock-box'>
+            <span class='hex-code'>Hex</span>
+            <div class='lock-icon'>
+            </div>
+          </div>
+        </div>
+        <div class='popsicle-stick'>
+        </div>
+      </div>
+      <div class='popsicle'>
+        <div class='color-box' id='color-five'>
+          <div class='lock-box'>
+            <span class='hex-code'>Hex</span>
+            <div class='lock-icon'>
+            </div>
+          </div>
+        </div>
+        <div class='popsicle-stick'>
+        </div>
+      </div>
+      <div class='project-container hidden'>
+        <h3>Projects</h3>
       </div>
     </div>
-    <div class='popsicle'>
-      <div class='color-box' id='color-four'>
-        <div class='lock-box'>
-          <span class='hex-code'>Hex</span>
-          <div class='lock-icon'>
-          </div>
-        </div>
+    <div class='palette-add'>
+        <select class='dropdown'>
+          <option>Select</option>
+        </select>
+        <input class='palette-input' type='text' placeholder='Palette Title'/>
+        <button class='btn-save'>Save</button>
       </div>
-      <div class='popsicle-stick'>
-      </div>
-    </div>
-    <div class='popsicle'>
-      <div class='color-box' id='color-five'>
-        <div class='lock-box'>
-          <span class='hex-code'>Hex</span>
-          <div class='lock-icon'>
-          </div>
-        </div>
-      </div>
-      <div class='popsicle-stick'>
-      </div>
-    </div>
   </div>
-  <div class='add-project'>
-    <input type='text' />
-    <button>New Project</button>
-  </div>
+
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script type="text/javascript" src="js/scripts.js"></script>
 </body>

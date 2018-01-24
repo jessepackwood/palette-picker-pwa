@@ -1,10 +1,15 @@
 $('.lock-icon').on('click', changeFlag)
 $('#new-palette').on('click', setColors)
 
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+      setColors()
+    }
+}
+
 
 function changeFlag() {
   $(this).toggleClass('selected-flag')
-  // console.log($(this.closest()))
   $(this).parents('.color-box').toggleClass('selected')
 }
 

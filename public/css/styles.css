@@ -6,20 +6,81 @@
 
 header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.add-project {
+  display: flex;
+  border: 1px solid black;
+  margin-top: 20px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.btn-view {
+  margin-top: 5px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-image: url('../assets/svg/right-arrow.svg');
+  background-size: cover;
+}
+
+.btn-view-label {
+  font-family: 'Roboto Slab', serif;
+  margin-left: auto;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+.project-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+}
+
+.title {
+  color: blue;
+  font-family: 'Roboto Slab', serif;
+  font-size: 34pt;
+}
+
+.header-subtitle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.subtitle {
+  margin: 10px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 11pt;
+}
+
+.title .picker {
+  color: orange;
 }
 
 .color-container {
   display: flex;
+  padding-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popsicle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .popsicle {
@@ -35,16 +96,17 @@ body {
   height: 75px;
   width: 15px;
   background: tan;
+  border-radius: 0 0 5px 5px;
 }
 
 .color-box {
   display: flex;
-  height: 350px;
+  height: 300px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 70px 70px 10px 10px;
+  border-radius: 70px 70px 15px 15px;
   margin: 0 10px;
 }
 
@@ -79,16 +141,106 @@ body {
 
 .lock-icon {
   margin-top: 15px;
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   background-image: url('../assets/svg/001-flag.svg');
   background-size: cover;
 }
 
+input {
+  font-size: 22px;
+  width: 200px;
+  height: 30px;
+  background: #F5F5F7;
+
+}
+
+button {
+  height: 30px;
+  width: 50px;
+  outline: none;
+  background: #F5F5F7;
+
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.btn-save {
+  border: none;
+  width: 100px;
+  border-radius: 0 20px 20px 0;
+  border-left: 1px solid black;
+  font-family: 'Roboto Slab';
+  font-size: 13pt;
+}
+
+
+.project-input {
+  height: 28px;
+  border: none;
+  border-radius: 20px;
+  margin-left: 10px;
+  outline: none;
+}
+
+.palette-add {
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  /*width: 100%;*/
+  display: flex;
+  justify-content: center;
+  /*padding: 20px;*/
+}
+
+.palette-input {
+  border: none;
+  padding-left: 10px;
+  margin-right: 10px;
+}
+.dropdown {
+  /*margin-left: auto;*/
+  margin-right: 10px;
+  font-size: 16pt;
+  width: 100px;
+  background: none;
+  border: none;
+  outline: none;
+  /*border-right: 1px solid black;*/
+}
+
+.btn-add {
+  border: none;
+  border-left: 1px solid black;
+  border-radius: 0 20px 20px 0;
+  outline: none;
+  font-family: 'Roboto Slab', serif;
+  font-size: 13pt;
+  height: 28px;
+}
+
 .hex-code {
-  opacity: .4;
+  opacity: .55;
 }
 
 .selected-flag {
   background-image: url('../assets/svg/002-black.svg');
+}
+
+.project-container {
+  width: 300px;
+  height: 375px;
+  background: darkgrey;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  /*margin: 60px auto;*/
+  background: #F5F5F7;
 }
