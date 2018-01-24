@@ -11,14 +11,41 @@ header {
   margin-bottom: 20px;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .color-container {
   display: flex;
 }
 
+.popsicle {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.popsicle-stick {
+  height: 75px;
+  width: 15px;
+  background: tan;
+}
+
 .color-box {
   display: flex;
-  height: 400px;
-  width: 20%;
+  height: 350px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 70px 70px 10px 10px;
+  margin: 0 10px;
 }
 
 .color-one {
@@ -42,24 +69,24 @@ header {
 }
 
 .lock-box {
-  height: 50px;
+  height: 70px;
   width: 100%;
-  z-index: 10;
-  background: white;
-  align-self: flex-end;
-  border-bottom: 1px solid black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .lock-icon {
-  z-index: 100;
+  margin-top: 15px;
   height: 25px;
   width: 25px;
   background-image: url('../assets/svg/001-flag.svg');
-  /*background: black;*/
   background-size: cover;
+}
+
+.hex-code {
+  opacity: .4;
 }
 
 .selected-flag {
