@@ -27,6 +27,18 @@ function getRandomColor() {
   return [ color, brightness ];
 }
 
+function setColors() {
+  const boxes = $('.color-box')
+  boxes.each( function() {
+    const brightnessArray = [ '#fff', '#000'];
+    if (!$(this).hasClass('selected')) {
+    let color = getRandomColor()
+    $(this).css('background', color[0]);
+    $(this).find('.hex-code').text(color[0]).css('color', brightnessArray[color[1]])
+    }
+  })
+}
+
 const appendProjectName = () => {
   const projectName = $('.project-input').val();
   $('.dropdown').append(`<option>${projectName}</option>`);
@@ -50,6 +62,40 @@ const postProjectName = async (projectName) => {
   }
 }
 
+const savePalette = () => {
+  const paletteName = $('.palette-input').val()
+  const projectName = $('.dropdown').val()
+
+  const paletteColors = {
+    color1: $('#hex-one').text(),
+    color2: $('#hex-two').text(),
+    color3: $('#hex-three').text(),
+    color4: $('#hex-four').text(),
+    color5: $('#hex-five').text()
+  }
+
+  const palette = {projectName, paletteName, ...paletteColors}
+  // console.log(palette)
+  postPalette(palette)
+}
+
+const postPalette = async (palette) => {
+  console.log(palette)
+  try {
+  const postPalette = await fetch(`/api/v1/${projects_id}/palettes`, {
+    method: 'POST', 
+    body: JSON.stringify({ palette }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const palette = await postPalette.json()
+    console.log(palette)
+    return project
+  } catch (error) {
+    error: 'Could not post palette'
+  }
+} 
 
 const fetchProjects = async () => {
   const unresolvedProjects = await fetch('/api/v1/projects')
@@ -82,14 +128,13 @@ const structureProjects = (palettes) => {
 
 
 function mapPalettes(allProjects) {
-  Object.keys(allProjects).map(key => {
+  const projectName = Object.keys(allProjects)
+  projectName.map(key => {
     allProjects[key].map( palette => {
       appendProjectCard(palette)
     })
   })
 }
-
-
 
 function appendProjectCard(palette) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
@@ -106,21 +151,12 @@ function appendProjectCard(palette) {
   )
 }
 
-function setColors() {
-  const boxes = $('.color-box')
-  boxes.each( function() {
-    const brightnessArray = [ '#fff', '#000'];
-    if (!$(this).hasClass('selected')) {
-    let color = getRandomColor()
-    $(this).css('background', color[0]);
-    $(this).find('.hex-code').text(color[0]).css('color', brightnessArray[color[1]])
-    }
-  })
-}
+
 
 $('.lock-icon').on('click', changeFlag)
 $('#new-palette').on('click', setColors)
 $('.btn-add').on('click', appendProjectName)
+$('.btn-save').on('click', savePalette)
 
 $(document).ready(() => {
   setColors();
