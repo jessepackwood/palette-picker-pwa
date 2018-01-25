@@ -1,12 +1,10 @@
-$('.lock-icon').on('click', changeFlag)
-$('#new-palette').on('click', setColors)
+// import { postProjectName } from './helper.js'
 
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
       setColors()
     }
 }
-
 
 function changeFlag() {
   $(this).toggleClass('selected-flag')
@@ -24,11 +22,88 @@ function getRandomColor() {
       brightness += parseInt(singleChar)
     }
   }
-  console.log(brightness)
 
   brightness < 20 ? brightness = 0 : brightness = 1;
-  console.log(brightness)
   return [ color, brightness ];
+}
+
+const appendProjectName = () => {
+  const projectName = $('.project-input').val();
+  $('.dropdown').append(`<option>${projectName}</option>`);
+  $('.project-input').val('');
+  postProjectName(projectName);
+}
+
+const postProjectName = async (projectName) => {
+  try {
+  const postProject = await fetch('/api/v1/projects', {
+    method: 'POST', 
+    body: JSON.stringify({project_name:  projectName}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const project = await postProject.json()
+    console.log(project)
+    return project
+  } catch (error) {
+  }
+}
+
+
+const fetchProjects = async () => {
+  const unresolvedProjects = await fetch('/api/v1/projects')
+  const fetchedProjects = await unresolvedProjects.json()
+  const projects = fetchedProjects.projects
+  projects.forEach( name => {
+    $('.dropdown').append(`<option>${name.project_name}</option>`)
+  })
+}
+
+const fetchPalettes = async () => {
+  console.log('fetchPalettes')
+  const unresolvedPalettes = await fetch('/api/v1/palettes')
+  const fetchedPalettes = await unresolvedPalettes.json()
+  const palettes = fetchedPalettes.palettes
+  const allProjects = palettes.reduce( (newProjectObj, currProject) => {
+    if (!newProjectObj[currProject.project_name]) {
+      Object.assign(newProjectObj, {[currProject.project_name]: []})
+    }
+    else {
+      newProjectObj[currProject.project_name].push(currProject)
+    }
+    return newProjectObj
+  }, {})
+  console.log(allProjects)
+
+  mapPalettes(allProjects)
+}
+
+function mapPalettes(allProjects) {
+  Object.keys(allProjects).map(key => {
+    allProjects[key].map( palette => {
+      appendProjectCard(palette)
+    })
+  })
+}
+
+
+
+function appendProjectCard(palette) {
+  console.log(palette)
+  console.log('appendPalettes')
+  const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
+  $('.project-container').append(
+    `<div projectId=${palette.project_id} paletteId=${id}>
+      <h3>${project_name}</h3>
+      <h4>${palette_name}</h4>
+      <div>${color1}</div>
+      <div>${color2}</div>
+      <div>${color3}</div>
+      <div>${color4}</div>
+      <div>${color5}</div>
+    </div>`
+  )
 }
 
 function setColors() {
@@ -43,5 +118,13 @@ function setColors() {
   })
 }
 
-$(document).ready(setColors)
+$('.lock-icon').on('click', changeFlag)
+$('#new-palette').on('click', setColors)
+$('.btn-add').on('click', appendProjectName)
+
+$(document).ready(() => {
+  setColors();
+  fetchProjects();
+  fetchPalettes();
+})
 
