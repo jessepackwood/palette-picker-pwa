@@ -61,10 +61,13 @@ const fetchProjects = async () => {
 }
 
 const fetchPalettes = async () => {
-  console.log('fetchPalettes')
   const unresolvedPalettes = await fetch('/api/v1/palettes')
   const fetchedPalettes = await unresolvedPalettes.json()
   const palettes = fetchedPalettes.palettes
+  structureProjects(palettes)
+}
+
+const structureProjects = (palettes) => {
   const allProjects = palettes.reduce( (newProjectObj, currProject) => {
     if (!newProjectObj[currProject.project_name]) {
       Object.assign(newProjectObj, {[currProject.project_name]: []})
@@ -74,10 +77,9 @@ const fetchPalettes = async () => {
     }
     return newProjectObj
   }, {})
-  console.log(allProjects)
-
   mapPalettes(allProjects)
 }
+
 
 function mapPalettes(allProjects) {
   Object.keys(allProjects).map(key => {
@@ -90,8 +92,6 @@ function mapPalettes(allProjects) {
 
 
 function appendProjectCard(palette) {
-  console.log(palette)
-  console.log('appendPalettes')
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
     `<div projectId=${palette.project_id} paletteId=${id}>
