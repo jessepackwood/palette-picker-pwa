@@ -254,7 +254,8 @@ button:hover {
 }
 
 .appended-project {
-  width: 80%;
+  width: 90%;
+  margin-top: 15px;
 }
 
 .append-project-title {
