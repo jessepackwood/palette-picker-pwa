@@ -10,6 +10,14 @@ header {
   margin-bottom: 20px;
 }
 
+.btn-new-flavors {
+  width: 200px;
+  border: 1px solid #5DE850;
+  background: #EB7E76;
+  color: #fff;
+  margin-top: 10px;
+}
+
 .add-project {
   display: flex;
   border: 1px solid black;

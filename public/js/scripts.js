@@ -159,9 +159,9 @@ function appendProjectCard(palette, index) {
 
 
 $('.lock-icon').on('click', changeFlag)
-$('#new-palette').on('click', setColors)
 $('.btn-add').on('click', appendProjectName)
 $('.btn-save').on('click', savePalette)
+$('.btn-new-flavors').on('click', setColors)
 
 $(document).ready(() => {
   setColors();
