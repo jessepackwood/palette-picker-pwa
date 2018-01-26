@@ -18,6 +18,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.locals.title = 'Palette Picker';
 
+app.listen(app.get('port'), ()=> {
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+});
+
 app.get('/', (request, response) => {
   response.send('palettepicker');
 });
@@ -88,8 +92,20 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
     })
 })
 
+app.delete('/api/v1/palettes/:id', (request, response)=>{ 
+  const { id } = request.params;  
 
-app.listen(app.get('port'), ()=> {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+  database('palettes').where({ id }).del() 
+    .then(palette=>{
+      if (palette){ 
+        response.sendStatus(204); 
+      } else {
+        response.status(422).json({ error: `No palette with an id ${id} was found` }); 
+      }
+    })
+    .catch(error=>{ 
+      response.status(500).json({ error }); 
+    });
 });
 
+module.exports = app;

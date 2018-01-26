@@ -1,14 +1,6 @@
-// import { postProjectName } from './helper.js'
-
-document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-      setColors()
-    }
-}
-
 function changeFlag() {
-  $(this).toggleClass('selected-flag')
-  $(this).parents('.color-box').toggleClass('selected')
+  $(this).toggleClass('selected-flag');
+  $(this).parents('.color-box').toggleClass('selected');
 }
 
 function getRandomColor() {
@@ -63,9 +55,10 @@ const postProjectName = async (projectName) => {
 }
 
 const savePalette = () => {
+  console.log('save palette')
   const palette_name = $('.palette-input').val()
   const project_name = $('.dropdown').val()
-  const projects_id = $('#appended-project').attr('projectId')
+  const projects_id = $('.appended-project').attr('projectId')
 
   const paletteColors = {
     color1: $('#hex-one').text(),
@@ -76,7 +69,7 @@ const savePalette = () => {
   }
 
   const palette = {project_name, palette_name, projects_id, ...paletteColors}
-  postPalette(palette)
+  postPalette(palette);
 }
 
 const postPalette = async (palette) => {
@@ -139,14 +132,14 @@ function mapPalettes(allProjects) {
 function appendProjectCard(palette, index) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
-    `<div id='appended-project' projectId=${palette.projects_id} paletteId=${id}>
+    `<div class='appended-project' projectId=${palette.projects_id} paletteId=${id}>
       <h3>${project_name}</h3>
       <h4>${palette_name}</h4>
-      <div id='${palette_name}-${index}-1'>${color1}</div>
-      <div id='${palette_name}-${index}-2'>${color2}</div>
-      <div id='${palette_name}-${index}-3'>${color3}</div>
-      <div id='${palette_name}-${index}-4'>${color4}</div>
-      <div id='${palette_name}-${index}-5'>${color5}</div>
+      <div id='${palette_name}-${index}-1' class='append-hex'>${color1}</div>
+      <div id='${palette_name}-${index}-2' class='append-hex'>${color2}</div>
+      <div id='${palette_name}-${index}-3' class='append-hex'>${color3}</div>
+      <div id='${palette_name}-${index}-4' class='append-hex'>${color4}</div>
+      <div id='${palette_name}-${index}-5' class='append-hex'>${color5}</div>
     </div>`
   )
   $(`#${palette_name}-${index}-1`).css('background-color', color1)
@@ -156,12 +149,46 @@ function appendProjectCard(palette, index) {
   $(`#${palette_name}-${index}-5`).css('background-color', color5)
 }
 
+const appendPalette = () => {
+  const palette_name = $('.palette-input').val();
+  const project_name = $('.dropdown').val();
+  const color1 = $('#hex-one').text();
+  const color2 = $('#hex-two').text();
+  const color3 = $('#hex-three').text();
+  const color4 = $('#hex-four').text();
+  const color5 = $('#hex-five').text();
+  $('.project-container').append(`
+    <div class='appended-project'>
+      <h3 class='append-project-title'><span class='append-project-subtitle'>Title: </span>${project_name}</h3>
+      <div>
+        <h4 class='append-palette-title'><span class='append-project-subtitle'>Palette: </span> ${palette_name}</h4>
+        <div class='appended-palettes-container'>
+          <div id='${palette_name}-1' class='append-hex'>${color1}</div>
+          <div id='${palette_name}-2' class='append-hex'>${color2}</div>
+          <div id='${palette_name}-3' class='append-hex'>${color3}</div>
+          <div id='${palette_name}-4' class='append-hex'>${color4}</div>
+          <div id='${palette_name}-5' class='append-hex'>${color5}</div>
+        </div>
+      </div>
+    </div>
+  `)
+
+  $(`#${palette_name}-1`).css('background-color', color1);
+  $(`#${palette_name}-2`).css('background-color', color2);
+  $(`#${palette_name}-3`).css('background-color', color3);
+  $(`#${palette_name}-4`).css('background-color', color4);
+  $(`#${palette_name}-5`).css('background-color', color5);
+  $('.palette-input').val('');
+  $('.dropdown').val('Project Title');
+}
 
 
-$('.lock-icon').on('click', changeFlag)
-$('#new-palette').on('click', setColors)
-$('.btn-add').on('click', appendProjectName)
-$('.btn-save').on('click', savePalette)
+
+$('.lock-icon').on('click', changeFlag);
+$('.btn-add').on('click', appendProjectName);
+$('.btn-save').on('click', savePalette);
+$('.btn-save').on('click', appendPalette);
+$('.btn-new-flavors').on('click', setColors);
 
 $(document).ready(() => {
   setColors();
