@@ -179,6 +179,7 @@ const appendPalette = () => {
   $(`#${palette_name}-4`).css('background-color', color4);
   $(`#${palette_name}-5`).css('background-color', color5);
   $('.palette-input').val('');
+  $('.dropdown').val('Project Title');
 }
 
 
