@@ -27,6 +27,18 @@ function getRandomColor() {
   return [ color, brightness ];
 }
 
+function setColors() {
+  const boxes = $('.color-box')
+  boxes.each( function() {
+    const brightnessArray = [ '#fff', '#000'];
+    if (!$(this).hasClass('selected')) {
+    let color = getRandomColor()
+    $(this).css('background', color[0]);
+    $(this).find('.hex-code').text(color[0]).css('color', brightnessArray[color[1]])
+    }
+  })
+}
+
 const appendProjectName = () => {
   const projectName = $('.project-input').val();
   $('.dropdown').append(`<option>${projectName}</option>`);
@@ -50,21 +62,58 @@ const postProjectName = async (projectName) => {
   }
 }
 
+const savePalette = () => {
+  const palette_name = $('.palette-input').val()
+  const project_name = $('.dropdown').val()
+  const projects_id = $('#appended-project').attr('projectId')
+
+  const paletteColors = {
+    color1: $('#hex-one').text(),
+    color2: $('#hex-two').text(),
+    color3: $('#hex-three').text(),
+    color4: $('#hex-four').text(),
+    color5: $('#hex-five').text()
+  }
+
+  const palette = {project_name, palette_name, projects_id, ...paletteColors}
+  postPalette(palette)
+}
+
+const postPalette = async (palette) => {
+  console.log(palette)
+  try {
+  const postPalette = await fetch(`/api/v1/projects/${palette.projects_id}/palettes`, {
+    method: 'POST', 
+    body: JSON.stringify({ palette }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  const paletteData = await postPalette.json()
+    console.log(paletteData)
+    return project
+  } catch (error) {
+    error: 'Could not post palette'
+  }
+} 
 
 const fetchProjects = async () => {
   const unresolvedProjects = await fetch('/api/v1/projects')
   const fetchedProjects = await unresolvedProjects.json()
   const projects = fetchedProjects.projects
   projects.forEach( name => {
-    $('.dropdown').append(`<option>${name.project_name}</option>`)
+    $('.dropdown').append(`<option >${name.project_name}</option>`)
   })
 }
 
 const fetchPalettes = async () => {
-  console.log('fetchPalettes')
   const unresolvedPalettes = await fetch('/api/v1/palettes')
   const fetchedPalettes = await unresolvedPalettes.json()
   const palettes = fetchedPalettes.palettes
+  structureProjects(palettes)
+}
+
+const structureProjects = (palettes) => {
   const allProjects = palettes.reduce( (newProjectObj, currProject) => {
     if (!newProjectObj[currProject.project_name]) {
       Object.assign(newProjectObj, {[currProject.project_name]: []})
@@ -74,53 +123,45 @@ const fetchPalettes = async () => {
     }
     return newProjectObj
   }, {})
-  console.log(allProjects)
-
   mapPalettes(allProjects)
 }
 
+
 function mapPalettes(allProjects) {
-  Object.keys(allProjects).map(key => {
-    allProjects[key].map( palette => {
-      appendProjectCard(palette)
+  const projectName = Object.keys(allProjects)
+  projectName.map(key => {
+    allProjects[key].map( (palette, index) => {
+      appendProjectCard(palette, index)
     })
   })
 }
 
-
-
-function appendProjectCard(palette) {
-  console.log(palette)
-  console.log('appendPalettes')
+function appendProjectCard(palette, index) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
-    `<div projectId=${palette.project_id} paletteId=${id}>
+    `<div id='appended-project' projectId=${palette.projects_id} paletteId=${id}>
       <h3>${project_name}</h3>
       <h4>${palette_name}</h4>
-      <div>${color1}</div>
-      <div>${color2}</div>
-      <div>${color3}</div>
-      <div>${color4}</div>
-      <div>${color5}</div>
+      <div id='${palette_name}-${index}-1'>${color1}</div>
+      <div id='${palette_name}-${index}-2'>${color2}</div>
+      <div id='${palette_name}-${index}-3'>${color3}</div>
+      <div id='${palette_name}-${index}-4'>${color4}</div>
+      <div id='${palette_name}-${index}-5'>${color5}</div>
     </div>`
   )
+  $(`#${palette_name}-${index}-1`).css('background-color', color1)
+  $(`#${palette_name}-${index}-2`).css('background-color', color2)
+  $(`#${palette_name}-${index}-3`).css('background-color', color3)
+  $(`#${palette_name}-${index}-4`).css('background-color', color4)
+  $(`#${palette_name}-${index}-5`).css('background-color', color5)
 }
 
-function setColors() {
-  const boxes = $('.color-box')
-  boxes.each( function() {
-    const brightnessArray = [ '#fff', '#000'];
-    if (!$(this).hasClass('selected')) {
-    let color = getRandomColor()
-    $(this).css('background', color[0]);
-    $(this).find('.hex-code').text(color[0]).css('color', brightnessArray[color[1]])
-    }
-  })
-}
+
 
 $('.lock-icon').on('click', changeFlag)
 $('#new-palette').on('click', setColors)
 $('.btn-add').on('click', appendProjectName)
+$('.btn-save').on('click', savePalette)
 
 $(document).ready(() => {
   setColors();
