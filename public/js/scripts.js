@@ -48,14 +48,12 @@ const postProjectName = async (projectName) => {
     }
   })
   const project = await postProject.json()
-    console.log(project)
     return project
   } catch (error) {
   }
 }
 
 const savePalette = () => {
-  console.log('save palette')
   const palette_name = $('.palette-input').val()
   const project_name = $('.dropdown').val()
   const projects_id = $('.appended-project').attr('projectId')
