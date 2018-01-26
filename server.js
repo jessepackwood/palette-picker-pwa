@@ -63,6 +63,7 @@ app.post('/api/v1/projects', (request, response) => {
 })
 
 
+
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const { id } = request.params;
   const palette = {...request.body.palette, projects_id: id}

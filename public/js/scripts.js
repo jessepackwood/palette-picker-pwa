@@ -74,7 +74,7 @@ const savePalette = () => {
     color4: $('#hex-four').text(),
     color5: $('#hex-five').text()
   }
-  
+
   const palette = {project_name, palette_name, projects_id, ...paletteColors}
   postPalette(palette)
 }
@@ -130,25 +130,30 @@ const structureProjects = (palettes) => {
 function mapPalettes(allProjects) {
   const projectName = Object.keys(allProjects)
   projectName.map(key => {
-    allProjects[key].map( palette => {
-      appendProjectCard(palette)
+    allProjects[key].map( (palette, index) => {
+      appendProjectCard(palette, index)
     })
   })
 }
 
-function appendProjectCard(palette) {
+function appendProjectCard(palette, index) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
     `<div id='appended-project' projectId=${palette.projects_id} paletteId=${id}>
       <h3>${project_name}</h3>
       <h4>${palette_name}</h4>
-      <div>${color1}</div>
-      <div>${color2}</div>
-      <div>${color3}</div>
-      <div>${color4}</div>
-      <div>${color5}</div>
+      <div id='${palette_name}-${index}-1'>${color1}</div>
+      <div id='${palette_name}-${index}-2'>${color2}</div>
+      <div id='${palette_name}-${index}-3'>${color3}</div>
+      <div id='${palette_name}-${index}-4'>${color4}</div>
+      <div id='${palette_name}-${index}-5'>${color5}</div>
     </div>`
   )
+  $(`#${palette_name}-${index}-1`).css('background-color', color1)
+  $(`#${palette_name}-${index}-2`).css('background-color', color2)
+  $(`#${palette_name}-${index}-3`).css('background-color', color3)
+  $(`#${palette_name}-${index}-4`).css('background-color', color4)
+  $(`#${palette_name}-${index}-5`).css('background-color', color5)
 }
 
 
