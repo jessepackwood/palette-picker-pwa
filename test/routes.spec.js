@@ -2,6 +2,7 @@ const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../server');
+const knex = require('../db/knex')
 
 chai.use(chaiHttp);
 
@@ -31,8 +32,13 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
+  beforeEach((done) => {
+    knex.seed.run()
+    .then(() => {
+      done();
+    });
+  });
   describe('GET api/v1/projects', () => {
-
     it('should return all the projects', () => {
       return chai.request(server)
       .get('/api/v1/projects')
@@ -50,7 +56,7 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/projects', () => {
-    it.skip('should post a new project', () => {
+    it('should post a new project', () => {
       return chai.request(server)
       .post('/api/v1/projects') 
       .send({                  
@@ -61,7 +67,7 @@ describe('API Routes', () => {
         response.should.have.status(201);
         response.body.should.be.a('object');
         response.body.should.have.property('id');
-        response.body.id.should.equal('1');
+        response.body.id.should.equal(1);
       })
       .catch(err => {
         throw err;
@@ -84,7 +90,7 @@ describe('API Routes', () => {
   });
 
   describe('DELETE /api/v1/palettes/:id', () => {
-    it.skip('should delete a palette', () => {
+    it('should delete a palette', () => {
       return chai.request(server)
         .delete('/api/v1/palettes/1')
         .then(response => {
