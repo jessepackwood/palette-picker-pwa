@@ -31,14 +31,16 @@ function setColors() {
   })
 }
 
-const appendProjectName = () => {
+const appendProjectName = async () => {
   const projectName = $('.project-input').val();
-  $('.dropdown').append(`<option>${projectName}</option>`);
+  const project = await postProjectName()
+  $('.dropdown').append(`<option data-projectId='${project.id}'>${projectName}</option>`);
   $('.project-input').val('');
-  postProjectName(projectName);
 }
 
-const postProjectName = async (projectName) => {
+const postProjectName = async () => {
+  const projectName = $('.project-input').val();
+  console.log('fired')
   try {
   const postProject = await fetch('/api/v1/projects', {
     method: 'POST', 
@@ -48,15 +50,18 @@ const postProjectName = async (projectName) => {
     }
   })
   const project = await postProject.json()
-    return project
+  console.log(project)
+  return project
   } catch (error) {
   }
 }
 
+
+
 const savePalette = () => {
   const palette_name = $('.palette-input').val()
   const project_name = $('.dropdown').val()
-  const projects_id = $('.appended-project').attr('projectId')
+  const projects_id = $('.dropdown').find(':selected').attr('data-projectId')
 
   const paletteColors = {
     color1: $('#hex-one').text(),
@@ -130,14 +135,16 @@ function mapPalettes(allProjects) {
 function appendProjectCard(palette, index) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
-    `<div class='appended-project' projectId=${palette.projects_id} paletteId=${id}>
-      <h3>${project_name}</h3>
-      <h4>${palette_name}</h4>
-      <div id='${palette_name}-${index}-1' class='append-hex'>${color1}</div>
-      <div id='${palette_name}-${index}-2' class='append-hex'>${color2}</div>
-      <div id='${palette_name}-${index}-3' class='append-hex'>${color3}</div>
-      <div id='${palette_name}-${index}-4' class='append-hex'>${color4}</div>
-      <div id='${palette_name}-${index}-5' class='append-hex'>${color5}</div>
+    `<div class='appended-project' paletteId=${id}>
+      <h3 class='append-project-title'><span class='append-project-subtitle'>Title: </span>${project_name}</h3>
+      <h4 class='append-palette-title'><span class='append-project-subtitle'>Palette: </span> ${palette_name}</h4>
+      <div class='appended-palettes-container'>
+        <div id='${palette_name}-${index}-1' class='append-hex'>${color1}</div>
+        <div id='${palette_name}-${index}-2' class='append-hex'>${color2}</div>
+        <div id='${palette_name}-${index}-3' class='append-hex'>${color3}</div>
+        <div id='${palette_name}-${index}-4' class='append-hex'>${color4}</div>
+        <div id='${palette_name}-${index}-5' class='append-hex'>${color5}</div>
+      </div>
     </div>`
   )
   $(`#${palette_name}-${index}-1`).css('background-color', color1)
