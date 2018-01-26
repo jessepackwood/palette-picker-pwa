@@ -1,10 +1,4 @@
-// import { postProjectName } from './helper.js'
 
-document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-      setColors()
-    }
-}
 
 function changeFlag() {
   $(this).toggleClass('selected-flag')

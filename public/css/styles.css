@@ -16,6 +16,7 @@ header {
   background: #EB7E76;
   color: #fff;
   margin-top: 10px;
+  border-radius: 9px;
 }
 
 .add-project {
@@ -26,20 +27,10 @@ header {
   height: 30px;
 }
 
-.btn-view {
-  margin-top: 5px;
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-image: url('../assets/svg/right-arrow.svg');
-  background-size: cover;
-}
 
 .btn-view-label {
   font-family: 'Roboto Slab', serif;
   margin-left: auto;
-  margin-right: 5px;
-  margin-top: 4px;
 }
 
 .project-button-wrapper {
@@ -179,7 +170,7 @@ button:hover {
 .btn-save {
   border: none;
   width: 100px;
-  border-radius: 0 9px 9px 0;
+  border-radius: 5px ;
   border-left: 1px solid black;
   font-family: 'Roboto Slab';
   font-size: 13pt;
@@ -199,17 +190,12 @@ button:hover {
 
 .palette-add {
   margin-top: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  /*width: 100%;*/
   display: flex;
   justify-content: center;
-  /*padding: 20px;*/
 }
 
 .palette-input {
   outline: none;
-  border: none;
   padding-left: 10px;
   margin-right: 10px;
 }
@@ -218,8 +204,7 @@ button:hover {
   margin-right: 10px;
   font-size: 16pt;
   width: 100px;
-  background: none;
-  border: none;
+  background: #F5F5F7;
   outline: none;
 }
 

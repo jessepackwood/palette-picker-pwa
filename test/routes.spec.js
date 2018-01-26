@@ -67,5 +67,19 @@ describe('API Routes', () => {
         throw err;
       });
     });
+
+    it('should return 422 when a required param is missing', () => {
+      return chai.request(server)
+        .post('/api/v1/projects')
+        .send({
+          project: {
+          }
+        })
+        .then(response => {
+        })
+        .catch(error => {
+          error.should.have.status(422);
+        });
+    });
   });
 });
