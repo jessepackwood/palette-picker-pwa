@@ -52,10 +52,11 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  background: #F5F5F7;
 }
 
 .title {
-  color: blue;
+  color: #0277BC;
   font-family: 'Roboto Slab', serif;
   font-size: 34pt;
 }
@@ -178,17 +179,20 @@ button:hover {
 .btn-save {
   border: none;
   width: 100px;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 9px 9px 0;
   border-left: 1px solid black;
   font-family: 'Roboto Slab';
   font-size: 13pt;
+  background: #0277BC;
+  color: #fff;
 }
 
 
 .project-input {
   height: 28px;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
+  padding-left: 5px;
   margin-left: 10px;
   outline: none;
 }
@@ -204,29 +208,31 @@ button:hover {
 }
 
 .palette-input {
+  outline: none;
   border: none;
   padding-left: 10px;
   margin-right: 10px;
 }
+
 .dropdown {
-  /*margin-left: auto;*/
   margin-right: 10px;
   font-size: 16pt;
   width: 100px;
   background: none;
   border: none;
   outline: none;
-  /*border-right: 1px solid black;*/
 }
 
 .btn-add {
   border: none;
   border-left: 1px solid black;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 9px 9px 0;
   outline: none;
   font-family: 'Roboto Slab', serif;
   font-size: 13pt;
   height: 28px;
+  background: #0277BC;
+  color: #fff;
 }
 
 .hex-code {
@@ -238,17 +244,14 @@ button:hover {
 }
 
 .project-container {
-  width: 300px;
-  height: 375px;
-  background: darkgrey;
+  width: 100%;
+  height: auto;
   padding: 10px;
 }
 
-.hidden {
-  display: none;
+.projects-container-title {
+  font-family: 'Roboto Slab', serif;
+  color: #0277BC;
 }
 
-body {
-  /*margin: 60px auto;*/
-  background: #F5F5F7;
-}
+
