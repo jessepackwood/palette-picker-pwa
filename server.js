@@ -18,6 +18,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.locals.title = 'Palette Picker';
 
+app.listen(app.get('port'), ()=> {
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+});
+
 app.get('/', (request, response) => {
   response.send('palettepicker');
 });
@@ -89,8 +93,5 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 })
 
 
-app.listen(app.get('port'), ()=> {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`)
-});
 
 module.exports = app;
