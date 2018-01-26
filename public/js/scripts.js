@@ -63,8 +63,9 @@ const postProjectName = async (projectName) => {
 }
 
 const savePalette = () => {
-  const paletteName = $('.palette-input').val()
-  const projectName = $('.dropdown').val()
+  const palette_name = $('.palette-input').val()
+  const project_name = $('.dropdown').val()
+  const projects_id = $('#appended-project').attr('projectId')
 
   const paletteColors = {
     color1: $('#hex-one').text(),
@@ -73,24 +74,23 @@ const savePalette = () => {
     color4: $('#hex-four').text(),
     color5: $('#hex-five').text()
   }
-
-  const palette = {projectName, paletteName, ...paletteColors}
-  // console.log(palette)
+  
+  const palette = {project_name, palette_name, projects_id, ...paletteColors}
   postPalette(palette)
 }
 
 const postPalette = async (palette) => {
   console.log(palette)
   try {
-  const postPalette = await fetch(`/api/v1/${projects_id}/palettes`, {
+  const postPalette = await fetch(`/api/v1/projects/${palette.projects_id}/palettes`, {
     method: 'POST', 
     body: JSON.stringify({ palette }),
     headers: {
       'Content-Type': 'application/json'
     }
   })
-  const palette = await postPalette.json()
-    console.log(palette)
+  const paletteData = await postPalette.json()
+    console.log(paletteData)
     return project
   } catch (error) {
     error: 'Could not post palette'
@@ -102,7 +102,7 @@ const fetchProjects = async () => {
   const fetchedProjects = await unresolvedProjects.json()
   const projects = fetchedProjects.projects
   projects.forEach( name => {
-    $('.dropdown').append(`<option>${name.project_name}</option>`)
+    $('.dropdown').append(`<option >${name.project_name}</option>`)
   })
 }
 
@@ -139,7 +139,7 @@ function mapPalettes(allProjects) {
 function appendProjectCard(palette) {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   $('.project-container').append(
-    `<div projectId=${palette.project_id} paletteId=${id}>
+    `<div id='appended-project' projectId=${palette.projects_id} paletteId=${id}>
       <h3>${project_name}</h3>
       <h4>${palette_name}</h4>
       <div>${color1}</div>

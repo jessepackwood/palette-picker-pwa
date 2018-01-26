@@ -65,7 +65,7 @@ app.post('/api/v1/projects', (request, response) => {
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const { id } = request.params;
-  const palette = Object.assign({}, request.body, {projects_id: id})
+  const palette = {...request.body.palette, projects_id: id}
 
   for ( let requiredParams of [
     'project_name', 'palette_name', 'color1', 'color2', 'color3', 'color4', 'color5'
@@ -79,12 +79,11 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
   }
 
   database('palettes').insert(palette, 'id')
-    // .then(id => console.log(id))
     .then(palette => {
       return response.status(201).json({ id: palette[0] })
     })
     .catch(error => {
-      return response.status(500).json({error: 'this is the error'})
+      return response.status(500).json({ error })
     })
 })
 
