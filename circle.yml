@@ -1,1 +1,5 @@
-hai
+machine:
+  timezone:
+    America/Denver
+  node:
+      version: 8.9.1
