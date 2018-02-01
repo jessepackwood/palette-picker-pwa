@@ -13,6 +13,15 @@ const database = require('knex')(configuration);
 // the specific port that the server is running on, in this case 3000
 app.set('port', process.env.PORT || 3000);
 
+const requireHTTPS = (req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect('https://' + req.get('host') + req.url)
+  }
+  next();
+};
+
+app.use(requireHTTPS);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
