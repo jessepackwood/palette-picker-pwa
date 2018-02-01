@@ -10,6 +10,7 @@ const configuration = require('./knexfile')[environment];
 //require knex returns a function that we call immediately, passing in configuration as an argument
 const database = require('knex')(configuration);
 
+// the specific port that the server is running on, in this case 3000
 app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.json());
@@ -39,6 +40,7 @@ app.get('/api/v1/projects', (request, response) => {
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
     .then(palettes => {
+      console.log(palettes)
       return response.status(200).json({ palettes })
     })
     .catch(error => {
@@ -94,9 +96,11 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 
 app.delete('/api/v1/palettes/:id', (request, response)=>{ 
   const { id } = request.params;  
-
+  console.log("ID!:", id)
+  database('palettes').select().then((p) => console.log(p))
   database('palettes').where({ id }).del() 
     .then(palette=>{
+      console.log(palette)
       if (palette){ 
         response.sendStatus(204); 
       } else {
@@ -105,7 +109,7 @@ app.delete('/api/v1/palettes/:id', (request, response)=>{
     })
     .catch(error=>{ 
       response.status(500).json({ error }); 
-    });
+    }); 
 });
 
 module.exports = app;

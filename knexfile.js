@@ -5,10 +5,10 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/palettepicker',
     migrations: {
-      directory: './db/migrations'
+      directory: __dirname + '/db/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
+      directory: __dirname + '/db/seeds/dev'
     },
     useNullasDefault: true
   },
@@ -18,10 +18,10 @@ module.exports = {
     connection: 'postgres://localhost/palettepicker_test',
     useNullasDefault: true,
     migrations: {
-      directory: __dirname + 'db/migrations'
+      directory: __dirname + '/db/migrations'
     },
     seeds: {
-      directory: './db/test'
+      directory: __dirname + '/db/seeds/test'
     }
   },
 
@@ -29,7 +29,7 @@ module.exports = {
     client: 'pg',
     connection: process.env.DATABASE_URL + `?ssl=true`,
     migrations: {
-      directory: './db/migrations'
+      directory: __dirname + '/db/migrations'
   },
   useNullAsDefault: true
   }
