@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe('Client Routes', () => {
   it('should return the homepage', () => {
-    return chai.request(server)
+    return chai.reque st(server)
     .get('/')
     .then(response => {
       response.should.have.status(200);
