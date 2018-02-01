@@ -90,9 +90,21 @@ describe('API Routes', () => {
   });
 
   describe('DELETE /api/v1/palettes/:id', () => {
+    let _palette;
+    beforeEach( (done) => {
+      knex('palettes').first().then( palette => {
+        _palette = palette
+        done();
+      })
+    })
+
+    // afterEach( () => {
+    //   knex('')
+    // })
+
     it('should delete a palette', () => {
       return chai.request(server)
-        .delete('/api/v1/palettes/1')
+        .delete(`/api/v1/palettes/${_palette.id}`)
         .then(response => {
           response.should.have.status(204);
         })
@@ -103,7 +115,7 @@ describe('API Routes', () => {
 
     it('should return an error if a palette is not found with the id', () => {
       return chai.request(server)
-        .delete('/api/v1/palettes/1')
+        .delete('/api/v1/palettes/ht53')
         .then(response => {
         })
         .catch(error => {
