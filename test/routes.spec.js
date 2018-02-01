@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe('Client Routes', () => {
   it('should return the homepage', () => {
-    return chai.reque st(server)
+    return chai.request(server)
     .get('/')
     .then(response => {
       response.should.have.status(200);
@@ -42,7 +42,6 @@ describe('API Routes', () => {
     it('should return all the projects', () => {
       return chai.request(server)
       .get('/api/v1/projects')
-      // .then(response => console.log(response))
       .then(response => {
         response.should.have.status(200);
         response.should.be.json;
@@ -93,14 +92,10 @@ describe('API Routes', () => {
     let _palette;
     beforeEach( (done) => {
       knex('palettes').first().then( palette => {
-        _palette = palette
+        _palette = palett e
         done();
       })
     })
-
-    // afterEach( () => {
-    //   knex('')
-    // })
 
     it('should delete a palette', () => {
       return chai.request(server)

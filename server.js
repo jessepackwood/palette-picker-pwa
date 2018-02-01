@@ -40,7 +40,6 @@ app.get('/api/v1/projects', (request, response) => {
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
     .then(palettes => {
-      console.log(palettes)
       return response.status(200).json({ palettes })
     })
     .catch(error => {
@@ -96,11 +95,9 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 
 app.delete('/api/v1/palettes/:id', (request, response)=>{ 
   const { id } = request.params;  
-  console.log("ID!:", id)
   database('palettes').select().then((p) => console.log(p))
   database('palettes').where({ id }).del() 
     .then(palette=>{
-      console.log(palette)
       if (palette){ 
         response.sendStatus(204); 
       } else {

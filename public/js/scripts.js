@@ -34,14 +34,12 @@ function setColors() {
 const appendProjectName = async () => {
   const projectName = $('.project-input').val();
   const project = await postProjectName()
-  console.log(project.id)
   $('.dropdown').append(`<option data-projectId='${project.id}'>${projectName}</option>`);
   $('.project-input').val('');
 }
 
 const postProjectName = async () => {
   const projectName = $('.project-input').val();
-  console.log('fired')
   try {
   const postProject = await fetch('/api/v1/projects', {
     method: 'POST', 
@@ -51,7 +49,6 @@ const postProjectName = async () => {
     }
   })
   const project = await postProject.json()
-  console.log(project)
   return project
   } catch (error) {
   }
@@ -88,7 +85,6 @@ const postPalette = async (palette) => {
     }
   })
   const paletteData = await postPalette.json()
-    console.log(paletteData)
     return project
   } catch (error) {
     error: 'Could not post palette'
@@ -98,7 +94,6 @@ const postPalette = async (palette) => {
 const deletePalette = async (event) => {
   const paletteElement = $(event.target).closest('.palette')
   const paletteId = paletteElement.data('palette-id')
-  console.log(paletteId)
   try {
   const deletePalette = await fetch(`/api/v1/palettes/${paletteId}`, {
     method: 'DELETE', 
@@ -126,11 +121,9 @@ const fetchPalettes = async () => {
   const fetchedPalettes = await unresolvedPalettes.json()
   const palettes = fetchedPalettes.palettes
   structureProjects(palettes)
-  // newMapPalettes(palettes)
 }
 
 const structureProjects = (palettes) => {
-  console.log(palettes)
   const allProjects = palettes.reduce( (newProjectObj, currProject) => {
     if (!newProjectObj[currProject.project_name]) {
       Object.assign(newProjectObj, {[currProject.project_name]: []})
@@ -160,14 +153,12 @@ function mapPalettes(allProjects) {
   projectName.map(key => {
     appendProjectCard(allProjects[key][0]);
     allProjects[key].map( (palette, index) => {
-      // appendProjectCard(palette, index)
       appendPalette(palette, index);
     })
   })
 }
 
 function appendProjectCard(palette, index) {
-  // const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
   const { project_name, palette_name} = palette
   $('.project-container').append(
     `<div class='appended-project' data-project-name=${project_name}>
@@ -195,11 +186,6 @@ const appendPalette = (palette) => {
       </div>
   `)
 
-  // $(`#${palette_name}-1`).css('background-color', color1);
-  // $(`#${palette_name}-2`).css('background-color', color2);
-  // $(`#${palette_name}-3`).css('background-color', color3);
-  // $(`#${palette_name}-4`).css('background-color', color4);
-  // $(`#${palette_name}-5`).css('background-color', color5);
   $('.palette-input').val('');
   $('.dropdown').val('Project Title');
 }
