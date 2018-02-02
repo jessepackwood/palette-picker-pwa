@@ -1,0 +1,30 @@
+{
+  "short_name": "palettePickerJesse",
+  "name": "Palette Picker",
+  "background_color": "#dcaffd",
+  "theme_color": "#74c7fd",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "/assets/svg/pantone.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/svg/pantone.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "i/assets/svg/pantone.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/svg/pantone.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html"
+}

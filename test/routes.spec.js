@@ -92,7 +92,7 @@ describe('API Routes', () => {
     let _palette;
     beforeEach( (done) => {
       knex('palettes').first().then( palette => {
-        _palette = palett e
+        _palette = palette
         done();
       })
     })
