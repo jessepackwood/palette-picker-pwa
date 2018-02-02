@@ -3,19 +3,7 @@ function changeFlag() {
   $(this).parents('.color-box').toggleClass('selected');
 }
 
-if('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('../service-worker.js')
-    .then(registration => navigator.serviceWorker.ready)
-    .then(registration => {
-      Notification.requestPermission()
-      console.log('ServiceWorker registration successful')
-    })
-    .catch(error => {
-      console.log(`ServiceWorker Registration failed: ${error}`);
-    });
-  })
-}
+
 
 function getRandomColor() {
   var hexCode = '0123456789ABCDEF';
@@ -86,6 +74,7 @@ const savePalette = () => {
   const palette = {project_name, palette_name, projects_id, ...paletteColors}
   addNewPalette(palette);
   postPalette(palette);
+  paletteNotification(palette.palette_name)
 }
 
 const postPalette = async (palette) => {
@@ -181,6 +170,13 @@ function appendProjectCard(palette, index) {
   )
 }
 
+const paletteNotification = (palette) => {
+  navigator.serviceWorker.controller.postMessage({
+    type: 'add-palette',
+    paletteName: palette
+  })
+}
+
 const appendPalette = (palette) => {
   const { project_name, palette_name, id, color1, color2, color3, color4, color5} = palette
 
@@ -217,6 +213,20 @@ $('.btn-save').on('click', savePalette);
 $('.btn-new-flavors').on('click', setColors);
 $(document).on('click', '.btn-palette-delete', deletePalette);
 
+
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../service-worker.js')
+    .then(registration => navigator.serviceWorker.ready)
+    .then(registration => {
+      Notification.requestPermission();
+      console.log('ServiceWorker registration successful')
+    })
+    .catch(error => {
+      console.log(`ServiceWorker Registration failed: ${error}`);
+    });
+  })
+}
 
 $(document).ready(() => {
   setColors();

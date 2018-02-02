@@ -1,13 +1,11 @@
-
 this.addEventListener('install', event => {
   event.waitUntil(
     caches.open('assets-v1').then(cache => {
       return cache.addAll([
         '/',
-        '/app.js',
-        'js/jquery.min.js',
+        '/js/jquery.min.js',
         '/js/scripts.js',
-        '/css/style.css',
+        '/css/styles.css',
         '/assets/svg/pantone.png'
       ])
     })
@@ -38,13 +36,8 @@ this.addEventListener('activate', (event) => {
 });
 
 this.addEventListener('message', (event) => {
-  if (event.data.type === 'add-markdown') {
-    pendingMarkdowns.push(event.data.markdown);
-    self.registration.sync.register('addMarkdown')
+  if (event.data.type === 'add-palette') {
+    self.registration.showNotification(`${event.data.paletteName} was successfully added`)
   }
 });
 
-
-
-  return Promise.all(markdownPromises);
-};
